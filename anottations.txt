@@ -1,0 +1,8 @@
+*Dockerfile e um arquivo de configuracao que cria a IMAGEM, a partir da aplicaao, que, posteriormente, envia para o caintainer
+
+*registry=dockerhub, e onde importamos o container para o servidor de prod, ele e tipo um repo, que nem o github, mas armezenamos containers ao invez de repos
+
+.yml
+#services: define os containers
+#build: caminho para encontrar o Dockerfile
+#container_name: define um nome fixo ao container

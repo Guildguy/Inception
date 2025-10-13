@@ -1,0 +1,5 @@
+FROM alpine:3.21.4
+
+# RUN | executa comando de construção
+
+EXPOSE 443
