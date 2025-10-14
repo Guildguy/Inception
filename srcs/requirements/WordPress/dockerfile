@@ -1,20 +1,23 @@
-#FROM alpine:3.21.4
+# image base
 FROM alpine:3.18
 
-# php82-curl
-
+# install
 RUN apk update && apk upgrade && \
     apk add --no-cache \
+    php82-curl \
     php82 php82-fpm \
     php82-mysqli php82-json \
     wget unzip
 
+# oficial pack from wp
 RUN wget https://wordpress.org/latest.zip \
     -P /tmp && unzip /tmp/latest.zip \
-    -d /var/www/ && rm /tmp/latest.zip
+    -d /var/www/wordpress && rm /tmp/latest.zip
 
+# listener to nginx
 RUN sed -i "s|listen = 127.0.0.1:9000|listen = 9000|g" /etc/php82/php-fpm.d/www.conf
 
 EXPOSE 9000
 
+# executes fmp in foreground
 CMD ["/usr/sbin/php-fpm82", "-F"]

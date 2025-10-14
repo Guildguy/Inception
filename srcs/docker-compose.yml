@@ -1,13 +1,23 @@
 services: #define os containers 
   nginx:
-    build: ./requirements/NGINX
-    container_name: nginx
+    build:
+      - requirements/NGINX/.
+    container_name:
+      - nginx
+    ports:
+      - "8080:80" 
+    environment:
+      - NGINX_PORT=80
   mariadb:
-    build: ./requirements/MariaDB
-    container_name: mariadb
+    build:
+      - ./requirements/MariaDB
+    container_name:
+      - mariadb
   wordpress:
-    build: ./requirements/WordPress
-    container_name: wordpress
+    build:
+      - ./requirements/WordPress
+    container_name:
+      - wordpress
     ports:
       - "8080:443"
  

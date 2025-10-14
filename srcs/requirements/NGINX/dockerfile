@@ -1,5 +1,10 @@
-FROM alpine:3.21.4
+FROM alpine:3.18
 
 # RUN | executa comando de construção
+RUN apk update && apk upgrade && \
+	apk add --no-cache \
+	nginx
 
 EXPOSE 443
+
+CMD [ "nginx", "-g", "daemon off;"]
