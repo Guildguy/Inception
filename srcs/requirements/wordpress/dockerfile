@@ -10,9 +10,11 @@ RUN apk update && apk upgrade && \
     wget unzip
 
 # oficial pack from wp
-RUN wget https://wordpress.org/latest.zip \
-    -P /tmp && unzip /tmp/latest.zip \
-    -d /var/www/wordpress && rm /tmp/latest.zip
+RUN wget https://wordpress.org/latest.zip -P /tmp && \
+    mkdir -p /var/www/wordpress && \
+    unzip /tmp/latest.zip -d /tmp && \
+    mv /tmp/wordpress/* /var/www/wordpress/ && \
+    rm -rf /tmp/wordpress /tmp/latest.zip
 
 # listener to nginx
 RUN sed -i "s|listen = 127.0.0.1:9000|listen = 9000|g" /etc/php82/php-fpm.d/www.conf

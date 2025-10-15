@@ -1,41 +1,31 @@
-services: #define os containers 
+services:
+  wordpress:
+    build: 
+      context: ./requirements/wordpress
+    container_name: wordpress
+    restart: always
+    expose:
+      - "9000"
+    volumes:
+      - wp-data:/var/www/wordpress
+    networks:
+      - inception
   nginx:
     build:
-      - requirements/NGINX/.
-    container_name:
-      - nginx
-    ports:
-      - "8080:80" 
-    environment:
-      - NGINX_PORT=80
-  mariadb:
-    build:
-      - ./requirements/MariaDB
-    container_name:
-      - mariadb
-  wordpress:
-    build:
-      - ./requirements/WordPress
-    container_name:
+      context: ./requirements/nginx
+    container_name: nginx
+    ports: 
+      - "8080:80"
+    volumes:
+      - wp-data:/var/www/wordpress:ro
+    depends_on:
       - wordpress
-    ports:
-      - "8080:443"
- 
-# proxy com nginx
-# services:
-  # proxy:
-    # image: nginx
-    # volumes:
-      # - type: bind
-        # source: ./proxy/nginx.conf
-        # target: /etc/nginx/conf.d/default.conf
-        # read_only: true
-    # ports:
-      # - 80:80
-    # depends_on:
-      # - backend
-# 
-  # backend:
-    # build:
-      # context: backend
-      # target: builder
+    networks:
+      - inception
+
+volumes:
+  wp-data:
+
+networks:
+    inception:
+      driver: bridge
