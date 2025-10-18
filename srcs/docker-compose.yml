@@ -3,15 +3,16 @@ services:
     build:
       context: ./requirements/mariadb
     container_name: mariadb
+    restart: always
     expose:
       - "3306"
     volumes:
-      - "mysql:/var/lib/mysql"
+      - mysql:/var/lib/mysql
     environment:
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - DB_NAME: ${DB_NAME}
+      - DB_USER: ${DB_USER}
+      - db_password
+      - db_root_password
   wordpress:
     build: 
       context: ./requirements/wordpress
@@ -39,8 +40,15 @@ services:
       - inception
 
 volumes:
-  wp-data:
+  mysql:
+  wp-data: 
 
 networks:
     inception:
       driver: bridge
+
+secrets:
+  db_password:
+    file: ../secrets/db_password.txt
+  db_root_password:
+    file: ../secrets/db_root_password.txt
