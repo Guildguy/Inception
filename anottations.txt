@@ -6,3 +6,6 @@
 #services: define os containers
 #build: caminho para encontrar o Dockerfile
 #container_name: define um nome fixo ao container
+#ports: cria um caminho entre a porta do container e a do host, isso da acesso ao mundo exterior
+#expose: expõe a porta apenas para outros containers
+#encironment: 
