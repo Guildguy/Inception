@@ -9,3 +9,5 @@
 #ports: cria um caminho entre a porta do container e a do host, isso da acesso ao mundo exterior
 #expose: expõe a porta apenas para outros containers
 #environment: define variaveis de ambiente dentro de um container
+
+TLS (Transport Layer Security)
