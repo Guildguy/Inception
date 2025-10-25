@@ -6,10 +6,10 @@ RUN apk update && apk upgrade && \
 	nginx gettext
 
 COPY ./conf/nginx.template.conf /etc/nginx/nginx.template.conf
-COPY ./tools/entrypoint.sh /entrypoint.sh
+COPY ./tools/entrypoint.sh 		/entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 
-EXPOSE 80
+EXPOSE 443
 
 CMD [ "/entrypoint.sh"]
