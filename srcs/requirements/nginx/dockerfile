@@ -1,0 +1,19 @@
+FROM alpine:3.21
+
+# RUN | executa comando de construção
+RUN apk update && apk upgrade && \
+	apk add --no-cache \
+	nginx gettext
+
+COPY ./conf/nginx.template.conf /etc/nginx/nginx.template.conf
+COPY ./tools/entrypoint.sh 		/entrypoint.sh
+
+COPY ./cert/fleite-j.42.fr.crt	/etc/ssl/certs/
+
+COPY ./cert/fleite-j.42.fr.key	/etc/ssl/private/
+
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 443
+
+CMD [ "/entrypoint.sh"]

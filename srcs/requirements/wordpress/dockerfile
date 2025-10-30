@@ -1,0 +1,38 @@
+# image base
+FROM alpine:3.21
+
+# install PHP e utilitários
+RUN apk update && apk upgrade && \
+    apk add --no-cache \
+    php82 php82-fpm \
+    php82-mysqli php82-json \
+    php82-curl php82-phar \
+    php82-iconv php82-mbstring \
+    wget unzip netcat-openbsd curl
+
+# baixar e preparar o WordPress em /usr/src/wordpress
+RUN ln -s /usr/bin/php82 /usr/bin/php
+
+RUN curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x /usr/local/bin/wp
+
+RUN wget https://wordpress.org/latest.zip -P /tmp && \
+    unzip /tmp/latest.zip -d /usr/src && \
+    rm -rf /tmp/latest.zip && \
+    chown -R nobody:nobody /usr/src/wordpress
+
+RUN mkdir -p /var/log/php82 && \
+    chown -R nobody:nobody /var/log/php82
+
+# configurar PHP-FPM para escutar na porta correta
+RUN sed -i "s|listen = 127.0.0.1:9000|listen = 9000|g" /etc/php82/php-fpm.d/www.conf
+
+# copiar o entrypoint
+COPY ./tools/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 9000
+
+USER nobody
+
+CMD ["/entrypoint.sh"]
