@@ -7,7 +7,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 	echo "Initializing database..."
 	mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 
-	mysqld_safe --datadir=/var/lib/mysql &
+	mariadbd-safe --datadir=/var/lib/mysql &
 
 	echo "waiting for mariadb to start..."
 	while ! mysqladmin ping -h localhost --silent; do
@@ -29,4 +29,4 @@ EOF
 fi
 
 echo "Starting MariaDB server in foreground..."
-exec mysqld_safe --datadir=/var/lib/mysql
+exec mariadbd-safe --datadir=/var/lib/mysql
