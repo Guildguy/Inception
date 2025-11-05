@@ -7,7 +7,7 @@ services:
     expose:
       - "3306"
     volumes:
-      - /home/fleite-j/data/mysql:/var/lib/mysql
+      - mysql:/var/lib/mysql
     environment:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
@@ -30,7 +30,7 @@ services:
     expose:
       - "${WP_PORT}"
     volumes:
-      - /home/fleite-j/data/wordpress:/var/www/wordpress
+      - wp-data:/var/www/wordpress
     depends_on:
       mariadb:
         condition: service_healthy
@@ -60,7 +60,7 @@ services:
     ports: 
       - "${ENTRY_PORT}:443"
     volumes:
-      - /home/fleite-j/data/wordpress:/var/www/wordpress:ro
+      - wp-data:/var/www/wordpress:ro
     depends_on:
       - wordpress
     networks:
@@ -79,3 +79,18 @@ secrets:
     file: ../secrets/wp_admin_password.txt
   wp_user_password:
     file: ../secrets/wp_user_password.txt
+
+volumes:
+  mysql:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/nfs/home/fleite-j/data/mysql'
+  wp-data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/nfs/home/fleite-j/data/wordpress'
+  
