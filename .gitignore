@@ -1,4 +1,12 @@
-anottations.txt
-secrets/credentials.txt
-secrets/db_password.txt
-secrets/db_root_password.txt
+*.env
+
+/secrets/
+
+/srcs/requirements/nginx/cert/
+
+/data/
+
+.DS_Store
+
+*.swp
+*~

@@ -1,0 +1,11 @@
+.dockerignore
+
+.git/
+.gitignore
+
+*.log
+*.tmp
+
+*.md
+*.swp
+*~
