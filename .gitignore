@@ -1,12 +1,12 @@
-#*.env
+*.env
 
-#/secrets/
+/secrets/
 
-#/srcs/requirements/nginx/cert/
+/srcs/requirements/nginx/cert/
 
-#/data/
+/data/
 
-#.DS_Store
+.DS_Store
 
-#*.swp
-#*~
+*.swp
+*~
