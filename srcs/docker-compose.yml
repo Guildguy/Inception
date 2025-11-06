@@ -86,11 +86,11 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/nfs/home/fleite-j/data/mysql'
+      device: '/home/fleite-j/data/mysql'
   wp-data:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/nfs/home/fleite-j/data/wordpress'
+      device: '/home/fleite-j/data/wordpress'
   
